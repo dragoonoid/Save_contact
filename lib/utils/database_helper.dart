@@ -45,6 +45,21 @@ class DatabaseHelper {
     }
   }
 
+  Future<int?> updateContact(Contact contact) async {
+    Database? db = await database;
+    if (db != null) {
+      return await db.update('Contact', contact.toMap(),
+          where: 'id=?', whereArgs: [contact.id]);
+    }
+  }
+  Future<int?> deleteContact(int? id) async {
+    Database? db = await database;
+    if (db != null) {
+      return await db.delete('Contact',
+          where: 'id=?', whereArgs: [id]);
+    }
+  }
+
   Future<List<Contact>> fetchContacts() async {
     Database? db = await database;
     if (db != null) {
